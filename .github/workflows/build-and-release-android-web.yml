@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
 
-name: Build and Release Apps (Android, Web)
+name: Build and Release Apps (Android)
 jobs:
   build:
     name: Build Apps
@@ -34,7 +34,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }}
+          name: ${{ env.APP_VERSION }} Android
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: 'build/app/outputs/apk/release/*.apk'
           prerelease: true

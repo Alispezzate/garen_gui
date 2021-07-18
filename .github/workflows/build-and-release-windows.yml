@@ -38,7 +38,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }}
+          name: ${{ env.APP_VERSION }} Windows
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: 'build\windows\runner\*.zip'
           prerelease: true
