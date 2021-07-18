@@ -29,6 +29,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  number_inc_dec: ^0.8.0-null-safety
+
 
 
   # The following adds the Cupertino Icons font to your application.
