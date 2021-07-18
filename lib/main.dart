@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int totHealth = 0;
   int total = 0;
   int level = 1;
-  final controller_MaxHP = TextEditingController();
+  final controllerMaxHP = TextEditingController();
 
   void calculate(int level, int totHealth) {
     setState(() {
@@ -44,21 +44,21 @@ class _MyHomePageState extends State<MyHomePage> {
             if(totHealth<=150){
               total = totHealth;
             }else{
-            total = ((totHealth + 600) / 5).toInt();
+            total = ((totHealth + 600) ~/ 5);
             }
             break;
         case 2:
             if(totHealth<=300){
               total = totHealth;
             }else{
-            total = ((totHealth + 1000) * 3 / 13).toInt();
+            total = ((totHealth + 1000) * 3 ~/ 13);
             }
             break;
         case 3:
             if(totHealth<=450){
               total = totHealth;
             }else{
-            total = ((totHealth + 9000 / 7) * 7 / 27).toInt();
+            total = ((totHealth + 9000 / 7) * 7 ~/ 27);
             }
             break;
         default:
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
               max: 3,
             ),
             TextField(
-              controller: controller_MaxHP,
+              controller: controllerMaxHP,
               maxLength: 5,
               onChanged: (value){
                 if(value.isNotEmpty){
