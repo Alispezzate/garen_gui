@@ -26,8 +26,8 @@ jobs:
           channel: 'stable'
       - name: Install pub Dependencies
         run: flutter pub get
-      - name: Run Tests
-        run: flutter test
+      #- name: Run Tests
+      #  run: flutter test
       - name: Build iOS App
         run: |
           flutter build ios --no-codesign
