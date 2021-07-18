@@ -1,0 +1,28 @@
+name: Windows build
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  windows:
+      runs-on: windows-latest
+      steps:
+        - uses: actions/checkout@v2
+        - uses: subosito/flutter-action@v1
+          with:
+            channel: beta
+        - run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%m.%S')" >> $GITHUB_ENV
+        - run: flutter config --enable-windows-desktop
+        - run: flutter build windows
+        - run: cd build\windows\runner\Release
+        #- run: zip -r windows.zip .
+  Release Apps:
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ env.APP_VERSION }}
+        name: ${{ env.APP_VERSION }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: 'build\windows\runner\Release\windows.zip'
