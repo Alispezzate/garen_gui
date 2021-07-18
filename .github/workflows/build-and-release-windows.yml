@@ -43,5 +43,5 @@ jobs:
           artifacts: 'build\windows\runner\*.tar'
           prerelease: true
         env:
-          APP_VERSION: 0.03
+          APP_VERSION: 0.04
       
