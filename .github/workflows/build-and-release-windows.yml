@@ -33,7 +33,7 @@ jobs:
           flutter config --enable-windows-desktop
           flutter build windows
           cd build\windows\runner
-          tar -cvzf windows.zip Release
+          tar -a -c -f windows.zip Release
       - name: Release Apps
         uses: ncipollo/release-action@v1
         with:

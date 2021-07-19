@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
 
-name: Build and Release Apps (iOS, macOS, Web)
+name: Build and Release Apps (iOS, Web)
 jobs:
   build:
     name: Build Apps
@@ -46,7 +46,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }} iOS, macOS, Web
+          name: ${{ env.APP_VERSION }} iOS, Web
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: 'build/ios/iphoneos/app.ipa,build/web/web-app.zip'
           prerelease: true
