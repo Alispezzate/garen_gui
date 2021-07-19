@@ -1,0 +1,28 @@
+^E:\FLUTTER\GAREN_GUI\BUILD\WINDOWS\CMAKEFILES\F54150025E18D339677916050C03E6AB\FLUTTER_WINDOWS.DLL.RULE
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -E env "FLUTTER_ROOT=E:\disco d\flutter_windows_2.2.3-stable\flutter" PROJECT_DIR=E:\flutter\garen_gui "FLUTTER_ROOT=E:\disco d\flutter_windows_2.2.3-stable\flutter" FLUTTER_EPHEMERAL_DIR=E:\flutter\garen_gui\windows\flutter\ephemeral PROJECT_DIR=E:\flutter\garen_gui FLUTTER_TARGET=E:\flutter\garen_gui\lib\main.dart DART_DEFINES=Zmx1dHRlci5pbnNwZWN0b3Iuc3RydWN0dXJlZEVycm9ycz10cnVl,RkxVVFRFUl9XRUJfQVVUT19ERVRFQ1Q9dHJ1ZQ== DART_OBFUSCATION=false TRACK_WIDGET_CREATION=true TREE_SHAKE_ICONS=false PACKAGE_CONFIG=E:\flutter\garen_gui\.dart_tool\package_config.json "E:/disco d/flutter_windows_2.2.3-stable/flutter/packages/flutter_tools/bin/tool_backend.bat" windows-x64 Debug
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\FLUTTER\GAREN_GUI\BUILD\WINDOWS\CMAKEFILES\E5CE9DBB526B5B1391B0E3CF76C0D174\FLUTTER_ASSEMBLE.RULE
+setlocal
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
+^E:\FLUTTER\GAREN_GUI\WINDOWS\FLUTTER\CMAKELISTS.TXT
+setlocal
+"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe" -SE:/flutter/garen_gui/windows -BE:/flutter/garen_gui/build/windows --check-stamp-file E:/flutter/garen_gui/build/windows/flutter/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
