@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Garen GUI 3.0',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.dark,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(),
     );
@@ -90,12 +91,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 initialValue: 1,
                 controller: TextEditingController(),
                 onIncrement: (num lv) {
-                  calculate(lv.toInt(), totHealth);
                   level=lv.toInt();
+                  calculate(level, totHealth);
                 },
                 onDecrement: (num lv) {
-                  calculate(lv.toInt(), totHealth);
                   level=lv.toInt();
+                  calculate(level, totHealth);
                 },
                 min: 1,
                 max: 3,
@@ -106,10 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 onChanged: (value){
                   if(value.isNotEmpty){
                     totHealth=int.parse(value);
-                    calculate(level, int.parse(value));
+                    calculate(level, totHealth);
                   }
                 },
-                //initialValue: '0',
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
