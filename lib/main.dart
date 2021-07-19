@@ -13,7 +13,6 @@ void main() {
   if(!kIsWeb){
     if(Platform.isWindows){
     setWindowTitle("Garen GUI 3.0");
-    print("ciao");
     }
   }
   
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Garen GUI 3.0',
       theme: ThemeData(
-        brightness: Brightness.dark,
+        //brightness: Brightness.dark,
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(),
