@@ -1,18 +1,22 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
-//import 'package:window_size/window_size.dart';
-//import 'dart:io' show Platform;
+import 'package:window_size/window_size.dart';
+import 'dart:io' show Platform;
 
 
 void main() {
   runApp(const MyApp());
-  //if(Platform.isWindows){
-    //setWindowTitle("Garen GUI 3.0");
-    //print("ciao");
-  //}
+  if(!kIsWeb){
+    if(Platform.isWindows){
+    setWindowTitle("Garen GUI 3.0");
+    print("ciao");
+    }
+  }
+  
 }
 
 class MyApp extends StatelessWidget {

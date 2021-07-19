@@ -30,11 +30,11 @@ dependencies:
   flutter:
     sdk: flutter
   number_inc_dec: ^0.8.0-null-safety
-  #window_size:
-  #  git:
-  #    url: git://github.com/google/flutter-desktop-embedding.git
-  #    path: plugins/window_size
-  #    ref: fd519be1e8398c6b6c2062c2447bac960a71bc02
+  window_size:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
+      ref: fd519be1e8398c6b6c2062c2447bac960a71bc02
 
 
 
