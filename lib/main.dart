@@ -12,7 +12,7 @@ void main() {
   runApp(const MyApp());
   if(!kIsWeb){
     if(Platform.isWindows){
-    setWindowTitle("Garen GUI 3.0");
+    setWindowTitle("Garen GUI 3.0.0");
     }
   }
   
