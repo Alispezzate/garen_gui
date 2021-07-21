@@ -29,13 +29,20 @@
 
   <title>Garen GUI 3.0</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="dist/style.css">
+
 </head>
 <body>
+  <div class="loader">
+    <svg class="circular">
+      <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
+  </div>
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
   <script>
-    var serviceWorkerVersion = '3955189557';
+    var serviceWorkerVersion = '1178048405';
     var scriptLoaded = false;
     function loadMainDartJs() {
       if (scriptLoaded) {
