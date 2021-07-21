@@ -10,28 +10,41 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
+        fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
       
-      - name: PWD
-        run: pwd
+    - name: PWD
+      run: pwd
 
-      - uses: subosito/flutter-action@v1
-        with:
-          channel: "beta"
+    - uses: subosito/flutter-action@v1
+      with:
+        channel: "beta"
 
-      - name: Install dependencies
-        run: flutter pub get
+    - name: Install dependencies
+      run: flutter pub get
 
-      - name: Analyzing project
-        run: flutter analyze
+    - name: Analyzing project
+      run: flutter analyze
 
-      - name: Enable web support
-        run: flutter config --enable-web
+    - name: Enable web support
+      run: flutter config --enable-web
 
-      - name: Build web app
-        run: flutter build web
+    - name: Build web app
+      run: flutter build web
 
-      - name: Copy files
-        run: cp -R /home/runner/work/garen_gui/garen_gui/build/web /home/runner/work/garen_gui/garen_gui/docs
+    - name: Copy files
+      run: cp -R /home/runner/work/garen_gui/garen_gui/build/web /home/runner/work/garen_gui/garen_gui/docs
+
+  - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
