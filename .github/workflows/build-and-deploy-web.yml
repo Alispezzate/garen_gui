@@ -11,7 +11,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name:
+    - name: Check Repository
       uses: actions/checkout@v2
       with:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
@@ -20,7 +20,7 @@ jobs:
     - name: PWD
       run: pwd
 
-    - name:
+    - name: Check Repository
       uses: subosito/flutter-action@v1
       with:
         channel: "beta"
