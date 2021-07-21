@@ -12,7 +12,7 @@ void main() {
   runApp(const MyApp());
   if(!kIsWeb){
     if(Platform.isWindows){
-    setWindowTitle("Garen GUI 3.0.0");
+      setWindowTitle("Garen GUI 3.0");
     }
   }
   
@@ -77,6 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void clearText() {
+    controllerMaxHP.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,14 +88,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Garen GUI 3.0"),
       ),
       body: Container(
+        padding: const EdgeInsets.all(10.0),
         alignment: Alignment.topCenter,
         child: SizedBox(
-          width: 600,
+          width: 500,
           child: Wrap(
             runAlignment: WrapAlignment.center,
-            spacing: 20,
-            runSpacing: 20,
+            runSpacing: 10,
             children: <Widget>[
+              Text(
+                "Garen ultimate level",
+                style: TextStyle(height: 1, fontSize: 18),
+              ),
               NumberInputWithIncrementDecrement(
                 initialValue: 1,
                 controller: TextEditingController(),
@@ -106,6 +114,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 min: 1,
                 max: 3,
               ),
+              SizedBox(
+                height: 0,
+                width: 600,
+              ),
+              Text(
+                "Target maximum health points",
+                style: TextStyle(height: 1, fontSize: 18),
+                ),
               TextField(
                 controller: controllerMaxHP,
                 maxLength: 5,
@@ -118,11 +134,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Enter target maximum health points'
+                  hintText: 'Enter target maximum health points',
+                  suffixIcon: IconButton(
+                    onPressed: controllerMaxHP.clear,
+                    icon: Icon(Icons.clear),
+                    splashRadius: 18,
+                  ),
                 ),
                 keyboardType: TextInputType.number,
               ),
-              Text("Optimal damage: $total"),
+              Text(
+                "Optimal damage: $total",
+                style: TextStyle(height: 1, fontSize: 18),
+              ),
             ],
           ),
         ),

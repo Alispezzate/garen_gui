@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.garen_gui">
    <application
-        android:label="garen_gui"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Garen GUI 3.0"
+        android:icon="@mipmap/demacian_justice">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
