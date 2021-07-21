@@ -37,6 +37,9 @@ jobs:
     - name: Build web app
       run: flutter build web
 
+    - name: Clean folder
+      run: rm -rf /home/runner/work/garen_gui/garen_gui/docs
+
     - name: Copy files
       run: cp -R /home/runner/work/garen_gui/garen_gui/build/web /home/runner/work/garen_gui/garen_gui/docs
 
