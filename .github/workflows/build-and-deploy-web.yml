@@ -59,10 +59,10 @@ jobs:
         cd build/web
         zip -r web-app.zip .
     - name: Release app
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }} iOS, Web
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: 'build/web/web-app.zip'
-          prerelease: true
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ env.APP_VERSION }}
+        name: ${{ env.APP_VERSION }} iOS, Web
+        token: ${{ secrets.GITHUB_TOKEN }}
+        artifacts: 'build/web/web-app.zip'
+        prerelease: true
