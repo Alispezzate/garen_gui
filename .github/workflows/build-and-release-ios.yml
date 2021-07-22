@@ -5,7 +5,7 @@ on:
   
   workflow_dispatch:
 
-name: Build and Release Apps (iOS, Web)
+name: Build and Release Apps (iOS)
 jobs:
   build:
     name: Build Apps
@@ -37,18 +37,13 @@ jobs:
           ln -s ../Runner.app
           cd ..
           zip -r app.ipa Payload
-      - name: Build Web App
-        run: |
-          flutter build web
-          cd build/web
-          zip -r web-app.zip .
       - name: Release Apps
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ env.APP_VERSION }}
-          name: ${{ env.APP_VERSION }} iOS, Web
+          name: ${{ env.APP_VERSION }} iOS
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: 'build/ios/iphoneos/app.ipa,build/web/web-app.zip'
+          artifacts: 'build/ios/iphoneos/app.ipa'
           prerelease: true
           #
       

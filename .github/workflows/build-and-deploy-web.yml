@@ -63,7 +63,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ env.APP_VERSION }}
-        name: ${{ env.APP_VERSION }} iOS, Web
+        name: ${{ env.APP_VERSION }} Web
         token: ${{ secrets.GITHUB_TOKEN }}
         artifacts: 'build/web/web-app.zip'
         prerelease: true
