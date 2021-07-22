@@ -1,4 +1,4 @@
-name: Build and Release Web
+name: Build and Deploy Web
 
 on:
   push:
@@ -54,3 +54,15 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
+    - name: Archive Web App build
+        run: |
+          cd build/web
+          zip -r web-app.zip .
+    - name: Release app
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ env.APP_VERSION }}
+          name: ${{ env.APP_VERSION }} iOS, Web
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: 'build/web/web-app.zip'
+          prerelease: true
