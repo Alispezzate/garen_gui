@@ -1,7 +1,5 @@
 body {
   background-color: #303030;
-  max-width: fit-content;
-  margin: auto;
 }
 
 $green: #008744;
@@ -15,7 +13,7 @@ $zoom: 4;
 
 .loader {
   position: relative;
-  margin: auto;
+  margin: 0px auto;
   width: $width;
   height: $width;
   zoom: $zoom;
