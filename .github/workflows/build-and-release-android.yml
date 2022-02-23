@@ -14,14 +14,14 @@ jobs:
       - name: Export Release Timestamp
         run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%m.%S')" >> $GITHUB_ENV
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Set up Java
         uses: actions/setup-java@v2
         with:
           java-version: '15'
           distribution: 'adopt'
       - name: Set up Flutter
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
       - name: Install pub Dependencies

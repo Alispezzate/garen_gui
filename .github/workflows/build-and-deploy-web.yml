@@ -22,7 +22,7 @@ jobs:
       run: pwd
 
     - name: Check Repository
-      uses: subosito/flutter-action@v1
+      uses: subosito/flutter-action@v2
       with:
         channel: "beta"
 
