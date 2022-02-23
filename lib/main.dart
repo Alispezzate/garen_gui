@@ -19,6 +19,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  // TODO: indagare sulla top bar di colore diverso
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Garen GUI 3.0"),
+        backgroundColor: Color(0xFF212121),
       ),
       body: Container(
         padding: const EdgeInsets.all(10.0),
