@@ -8658,9 +8658,11 @@ _.e=a
 _.f=b
 _.a=c
 _.b=d},
-qn:function qn(a,b,c){this.e=a
-this.k2=b
-this.a=c},
+qn:function qn(a,b,c,d){var _=this
+_.e=a
+_.ch=b
+_.k2=c
+_.a=d},
 vF:function vF(a){var _=this
 _.d=null
 _.e=!1
@@ -35117,14 +35119,15 @@ if(a8==null)a7=a2
 else if(!a8.gGj()){a7=a8.iF$
 a7=a7!=null&&a7.length!==0}else a7=!0
 o=a7===!0
-a1.a.toString
+a7=a1.a
+a7.toString
 n=a6.ch
 if(n==null)n=56
-a7=a5.a===B.R?a5.fy:a5.b
-r=t.jH
-m=A.de(a2,s,r)
-r=m==null?A.de(a6.b,s,r):m
-l=r==null?A.de(a7,s,t.iO):r
+r=a5.a===B.R?a5.fy:a5.b
+m=t.jH
+a7=A.de(a7.ch,s,m)
+if(a7==null)a7=A.de(a6.b,s,m)
+l=a7==null?A.de(r,s,t.iO):a7
 a1.a.toString
 k=a6.c
 if(k==null)k=a5.a===B.R?a5.go:a5.c
@@ -56149,7 +56152,7 @@ az(){return new A.HN(A.a9N(null),B.l)}}
 A.HN.prototype={
 w0(a,b){this.aH(new A.a09(this,a,b))},
 N(a,b){var s=this,r=null,q=A.oE("Garen GUI 3.0",r,r,r,r,r,r),p=A.oE("Garen ultimate level",r,r,r,A.iA(r,r,r,r,r,r,r,r,r,r,r,18,r,r,r,1,!0,r,r,r,r,r,r,r,r),r,r),o=A.a9N(r),n=A.lC(r,0,600),m=A.oE("Target maximum health points",r,r,r,A.iA(r,r,r,r,r,r,r,r,r,r,r,18,r,r,r,1,!0,r,r,r,r,r,r,r,r),r,r),l=A.Pm(!0,r,!0,!0,r,r,!1),k=s.r,j=A.b([$.a6p()],t.F4)
-return new A.ut(new A.qn(q,new A.Iy(r,r,1/0,56),r),A.j7(B.kz,A.lC(new A.Fk(B.L1,10,A.b([p,new A.tF(o,1,3,1,new A.a05(s),new A.a06(s),r),n,m,new A.Bt(l,new A.a07(s),A.a9P(!0,B.b8,!1,r,k,r,r,r,2,A.a4E(r,new A.eL(4,B.ew,B.ey),r,r,r,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,"Enter target maximum health points",r,r,r,r,!1,r,r,r,r,r,r,r,r,r,r,r,r,A.Qt(r,A.Qs(B.zi,r,r),r,k.gEY(k),18,r),r,r,r,r),!0,r,!0,r,!1,r,j,r,B.G9,5,!0,r,1,r,!1,"\u2022",new A.a08(s),r,r,r,!1,r,r,B.lf,r,r,r,r,r,r,r,B.bC,r,B.tL,r,r,r),r),A.oE("Optimal damage: "+s.e,r,r,r,A.iA(r,r,r,r,r,r,r,r,r,r,r,18,r,r,r,1,!0,r,r,r,r,r,r,r,r),r,r)],t.F),r),r,500),r,r,r,r,B.yV,r),r)}}
+return new A.ut(new A.qn(q,new A.y(4280361249),new A.Iy(r,r,1/0,56),r),A.j7(B.kz,A.lC(new A.Fk(B.L1,10,A.b([p,new A.tF(o,1,3,1,new A.a05(s),new A.a06(s),r),n,m,new A.Bt(l,new A.a07(s),A.a9P(!0,B.b8,!1,r,k,r,r,r,2,A.a4E(r,new A.eL(4,B.ew,B.ey),r,r,r,r,r,r,!0,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,r,"Enter target maximum health points",r,r,r,r,!1,r,r,r,r,r,r,r,r,r,r,r,r,A.Qt(r,A.Qs(B.zi,r,r),r,k.gEY(k),18,r),r,r,r,r),!0,r,!0,r,!1,r,j,r,B.G9,5,!0,r,1,r,!1,"\u2022",new A.a08(s),r,r,r,!1,r,r,B.lf,r,r,r,r,r,r,r,B.bC,r,B.tL,r,r,r),r),A.oE("Optimal damage: "+s.e,r,r,r,A.iA(r,r,r,r,r,r,r,r,r,r,r,18,r,r,r,1,!0,r,r,r,r,r,r,r,r),r,r)],t.F),r),r,500),r,r,r,r,B.yV,r),r)}}
 A.a09.prototype={
 $0(){var s,r,q=this
 switch(q.b){case 1:s=q.c
