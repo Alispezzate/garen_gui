@@ -43,5 +43,5 @@ jobs:
           artifacts: 'build\windows\runner\*.zip'
           prerelease: true
         env:
-          APP_VERSION: 0.1
+          APP_VERSION: 0.2
       
