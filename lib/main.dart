@@ -24,7 +24,7 @@ Future<void> main() async {
       appWindow.show();
       windowManager.setAlwaysOnTop(true);
       Window.setEffect(
-        effect: WindowEffect.transparent,
+        effect: WindowEffect.aero,
       );
     });
   }
@@ -108,14 +108,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Stack(
               children: [
                 Container(
-                  color: Color.fromARGB(110, 0, 0, 0),
+                  color: Color.fromARGB(70, 0, 0, 0),
                 ),
                 MoveWindow(),
               ],
             )),
             Expanded(
                 child: Scaffold(
-              backgroundColor: Color.fromARGB(70, 0, 0, 0),
+              backgroundColor: Color.fromARGB(20, 0, 0, 0),
               body: Container(
                 padding:
                     const EdgeInsets.only(left: 10.0, right: 10.0, top: 1.0),

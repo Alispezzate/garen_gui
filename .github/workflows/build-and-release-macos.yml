@@ -18,6 +18,8 @@ jobs:
           flutter-version: '2.10.0'
       - name: Install project dependencies
         run: flutter pub get
+      - name: Export Release Timestamp
+        run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%m.%S')" >> $GITHUB_ENV
       - name: Enable macOS build
         run: flutter config --enable-macos-desktop
       - name: Build artifacts
