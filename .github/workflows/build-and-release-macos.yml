@@ -30,8 +30,8 @@ jobs:
       #  run: flutter test
       - name: Enable macOS build
         run: flutter config --enable-macos-desktop
-      - name: Enable macOS build
-        run: flutter config --enable-macos-desktop
+      - name: Build artifacts
+        run: flutter build macos --release
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
