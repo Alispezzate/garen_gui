@@ -1,20 +1,54 @@
 // ignore_for_file: prefer_const_constructors
-
+// TODO: overlay in game
+// TODO: versione macos ufficiale
+// TODO: aggiungere msix
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
-import 'package:window_size/window_size.dart';
 import 'dart:io' show Platform;
+import 'package:window_manager/window_manager.dart';
+import 'package:flutter_acrylic/flutter_acrylic.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
-void main() {
-  runApp(const MyApp());
-  if (!kIsWeb) {
-    if (Platform.isWindows) {
-      setWindowTitle("Garen GUI 3.0");
-    }
+// Future<void> main() async {
+//   if (!kIsWeb) {
+//     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+//       WidgetsFlutterBinding.ensureInitialized();
+//       // Must add this line.
+//       await windowManager.ensureInitialized();
+//       await Window.initialize();
+//     }
+//   }
+//   runApp(const MyApp());
+//   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
+//     windowManager.setAlwaysOnTop(true);
+//     windowManager.setTitle("Garen GUI 3.0");
+//     // windowManager.setOpacity(1);
+//     await Window.setEffect(effect: WindowEffect.acrylic);
+//   }
+// }
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Window.initialize();
+  if (Platform.isWindows) {
+    await Window.hideWindowControls();
+  }
+  runApp(MyApp());
+  if (Platform.isWindows) {
+    doWhenWindowReady(() async {
+      appWindow.minSize = Size(300, 350);
+      appWindow.size = Size(300, 350);
+      appWindow.alignment = Alignment.center;
+      appWindow.show();
+      Window.setEffect(effect: WindowEffect.acrylic);
+    });
   }
 }
+
+// ThemeData defaultTheme =
+//     ThemeData(brightness: Brightness.dark, primarySwatch: Colors.green);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -23,6 +57,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Garen GUI 3.0',
       theme: ThemeData(
         brightness: Brightness.dark,
@@ -45,6 +80,30 @@ class _MyHomePageState extends State<MyHomePage> {
   int total = 0;
   int level = 1;
   final controllerMaxHP = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    Window.setEffect(
+      effect: WindowEffect.acrylic,
+      color: Color(0xCC222222),
+    );
+  }
+
+  // void setWindowEffect(WindowEffect? value) {
+  //   Window.setEffect(
+  //     effect: value!,
+  //     color: Colors.grey,
+  //     dark: true,
+  //   );
+  //   // if (Platform.isMacOS) {
+  //   //   if (brightness != InterfaceBrightness.auto) {
+  //   //     Window.overrideMacOSBrightness(
+  //   //         dark: brightness == InterfaceBrightness.dark);
+  //   //   }
+  //   // }
+  //   // setState(() => this.effect = value);
+  // }
 
   void calculate(int level, int totHealth) {
     setState(() {
@@ -90,6 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Container(
         padding: const EdgeInsets.all(10.0),
         alignment: Alignment.topCenter,
+        // color: Colors.redAccent.withOpacity(0.5),
         child: SizedBox(
           width: 500,
           child: Wrap(
