@@ -28,10 +28,19 @@ jobs:
           type: 'zip'
           filename: MacRecoveryX-${{github.ref_name}}-macos.zip
           directory: build/macos/Build/Products/Release
-      - name: macOS Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: macOS Release
+      #   uses: softprops/action-gh-release@v1
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     files: build/macos/Build/Products/Release/MacRecoveryX-${{github.ref_name}}-macos.zip
+      - name: Release Apps
+        uses: ncipollo/release-action@v1
         with:
-          files: build/macos/Build/Products/Release/MacRecoveryX-${{github.ref_name}}-macos.zip
+          tag: ${{ env.APP_VERSION }}
+          name: ${{ env.APP_VERSION }} iOS
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: 'build/macos/Build/Products/Release/MacRecoveryX-${{github.ref_name}}-macos.zip'
+          prerelease: true
+          #
