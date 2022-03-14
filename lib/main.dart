@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors
-// TODO: overlay in game
 // TODO: versione macos ufficiale
 // TODO: aggiungere msix
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
@@ -31,18 +30,23 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   await Window.initialize();
-  if (Platform.isWindows) {
-    await Window.hideWindowControls();
-  }
+  // if (Platform.isWindows) {
+  //   await Window.showWindowControls();
+  // }
   runApp(MyApp());
   if (Platform.isWindows) {
     doWhenWindowReady(() async {
-      appWindow.minSize = Size(300, 350);
-      appWindow.size = Size(300, 350);
-      appWindow.alignment = Alignment.center;
+      const initialSize = Size(170, 215);
+      appWindow.minSize = initialSize;
+      appWindow.size = initialSize;
+      appWindow.title = "GAREN";
+      appWindow.alignment = Alignment.centerRight;
       appWindow.show();
-      Window.setEffect(effect: WindowEffect.acrylic);
+      windowManager.setAlwaysOnTop(true);
+      // windowManager.setBackgroundColor(Colors.transparent);
+      // Window.setEffect(effect: WindowEffect.transparent);
     });
   }
 }
@@ -52,8 +56,6 @@ Future<void> main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
-  // TODO: indagare sulla top bar di colore diverso
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,6 +63,7 @@ class MyApp extends StatelessWidget {
       title: 'Garen GUI 3.0',
       theme: ThemeData(
         brightness: Brightness.dark,
+        // backgroundColor: Colors.transparent,
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(),
@@ -84,10 +87,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    Window.setEffect(
-      effect: WindowEffect.acrylic,
-      color: Color(0xCC222222),
-    );
+    // Window.setEffect(
+    //   effect: WindowEffect.acrylic,
+    //   color: Color(0xCC222222),
+    // );
   }
 
   // void setWindowEffect(WindowEffect? value) {
@@ -141,85 +144,98 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Garen GUI 3.0"),
-        backgroundColor: Color(0xFF212121),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(10.0),
-        alignment: Alignment.topCenter,
-        // color: Colors.redAccent.withOpacity(0.5),
-        child: SizedBox(
-          width: 500,
-          child: Wrap(
-            runAlignment: WrapAlignment.center,
-            runSpacing: 10,
-            children: <Widget>[
-              Text(
-                "Garen ultimate level",
-                style: TextStyle(height: 1, fontSize: 18),
-              ),
-              NumberInputWithIncrementDecrement(
-                initialValue: 1,
-                controller: TextEditingController(),
-                onIncrement: (num lv) {
-                  level = lv.toInt();
-                  calculate(level, totHealth);
-                },
-                onDecrement: (num lv) {
-                  level = lv.toInt();
-                  calculate(level, totHealth);
-                },
-                min: 1,
-                max: 3,
-              ),
-              SizedBox(
-                height: 0,
-                width: 600,
-              ),
-              Text(
-                "Target maximum health points",
-                style: TextStyle(height: 1, fontSize: 18),
-              ),
-              KeyboardListener(
-                focusNode: FocusNode(), // or FocusNode()
-                onKeyEvent: (event) {
-                  if (event.logicalKey == LogicalKeyboardKey.escape) {
-                    // here you can check if textfield is focused
-                    clearText();
-                  }
-                },
-                child: TextField(
-                  controller: controllerMaxHP,
-                  maxLength: 5,
-                  onChanged: (value) {
-                    if (value.isNotEmpty) {
-                      totHealth = int.parse(value);
-                      calculate(level, totHealth);
-                    }
-                  },
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Enter target maximum health points',
-                    suffixIcon: IconButton(
-                      onPressed: controllerMaxHP.clear,
-                      icon: Icon(Icons.clear),
-                      splashRadius: 18,
-                    ),
+    return SizedBox(
+        width: 200,
+        child: Column(
+          children: [
+            WindowTitleBarBox(
+                child: Stack(
+              children: [
+                Container(
+                  color: Color.fromARGB(110, 0, 0, 0),
+                ),
+                MoveWindow(),
+              ],
+            )),
+            Expanded(
+                child: Scaffold(
+              backgroundColor: Color.fromARGB(70, 0, 0, 0),
+              body: Container(
+                padding:
+                    const EdgeInsets.only(left: 10.0, right: 10.0, top: 1.0),
+                alignment: Alignment.topCenter,
+                // color: Colors.transparent,
+                child: SizedBox(
+                  width: 500,
+                  child: Wrap(
+                    runAlignment: WrapAlignment.center,
+                    runSpacing: 5,
+                    children: <Widget>[
+                      Text(
+                        "Garen ultimate level",
+                        style: TextStyle(height: 1, fontSize: 11),
+                      ),
+                      NumberInputWithIncrementDecrement(
+                        initialValue: 1,
+                        controller: TextEditingController(),
+                        onIncrement: (num lv) {
+                          level = lv.toInt();
+                          calculate(level, totHealth);
+                        },
+                        onDecrement: (num lv) {
+                          level = lv.toInt();
+                          calculate(level, totHealth);
+                        },
+                        min: 1,
+                        max: 3,
+                      ),
+                      Text(
+                        "Target maximum health points",
+                        style: TextStyle(height: 1, fontSize: 11),
+                      ),
+                      KeyboardListener(
+                        focusNode: FocusNode(), // or FocusNode()
+                        onKeyEvent: (event) {
+                          if (event.logicalKey == LogicalKeyboardKey.escape) {
+                            // here you can check if textfield is focused
+                            clearText();
+                          }
+                        },
+                        child: TextField(
+                          controller: controllerMaxHP,
+                          maxLength: 5,
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              totHealth = int.parse(value);
+                              calculate(level, totHealth);
+                            }
+                          },
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly
+                          ],
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.only(left: 5),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter target maximum health points',
+                            suffixIcon: IconButton(
+                              onPressed: controllerMaxHP.clear,
+                              icon: Icon(Icons.clear),
+                              splashRadius: 18,
+                            ),
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
+                      ),
+                      Text(
+                        "Optimal damage: $total",
+                        style: TextStyle(height: 1, fontSize: 11),
+                      ),
+                    ],
                   ),
-                  keyboardType: TextInputType.number,
                 ),
               ),
-              Text(
-                "Optimal damage: $total",
-                style: TextStyle(height: 1, fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ))
+          ],
+        ));
   }
 }
