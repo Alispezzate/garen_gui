@@ -7,27 +7,19 @@ on:
 
 name: Build and Release Apps (MacOS)
 jobs:
-  build:
-    name: Build Apps
+  build-and-release-macos:
     runs-on: macos-latest
+
     steps:
-      - name: Export Release Timestamp
-        run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%m.%S')" >> $GITHUB_ENV
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      # - name: Set up Java
-      #   uses: actions/setup-java@v2
-      #   with:
-      #     java-version: '15'
-      #     distribution: 'adopt'
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
         with:
           channel: 'stable'
-      - name: Install pub Dependencies
+          flutter-version: '2.10.0'
+      - name: Install project dependencies
         run: flutter pub get
-      #- name: Run Tests
-      #  run: flutter test
+      - name: Generate intermediates
+        run: flutter pub run build_runner build --delete-conflicting-outputs
       - name: Enable macOS build
         run: flutter config --enable-macos-desktop
       - name: Build artifacts
@@ -36,7 +28,7 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          filename: Garen-GUI-${{github.ref_name}}-macos.zip
+          filename: MacRecoveryX-${{github.ref_name}}-macos.zip
           directory: build/macos/Build/Products/Release
       - name: macOS Release
         uses: softprops/action-gh-release@v1
@@ -44,4 +36,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/macos/Build/Products/Release/Garen-GUI-${{github.ref_name}}-macos.zip
+          files: build/macos/Build/Products/Release/MacRecoveryX-${{github.ref_name}}-macos.zip
