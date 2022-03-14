@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-// TODO: versione macos ufficiale
 // TODO: aggiungere msix
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
