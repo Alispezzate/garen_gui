@@ -2,6 +2,7 @@
 // TODO: versione macos ufficiale
 // TODO: aggiungere msix
 import 'package:flutter/material.dart';
+import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
@@ -11,16 +12,20 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  await Window.initialize();
   runApp(MyApp());
-  if (Platform.isWindows) {
+  if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
     doWhenWindowReady(() async {
-      const initialSize = Size(170, 215);
+      const initialSize = Size(170, 220);
       appWindow.minSize = initialSize;
       appWindow.size = initialSize;
       appWindow.title = "GAREN";
       appWindow.alignment = Alignment.centerRight;
       appWindow.show();
       windowManager.setAlwaysOnTop(true);
+      Window.setEffect(
+        effect: WindowEffect.transparent,
+      );
     });
   }
 }
