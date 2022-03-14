@@ -1,0 +1,47 @@
+on:
+  push:
+    branches:
+      - master
+  
+  workflow_dispatch:
+
+name: Build and Release Apps (MacOS)
+jobs:
+  build:
+    name: Build Apps
+    runs-on: macos-latest
+    steps:
+      - name: Export Release Timestamp
+        run: echo "APP_VERSION=v$(date +'%Y.%m.%d.%H.%m.%S')" >> $GITHUB_ENV
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      # - name: Set up Java
+      #   uses: actions/setup-java@v2
+      #   with:
+      #     java-version: '15'
+      #     distribution: 'adopt'
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Install pub Dependencies
+        run: flutter pub get
+      #- name: Run Tests
+      #  run: flutter test
+      - name: Enable macOS build
+        run: flutter config --enable-macos-desktop
+      - name: Enable macOS build
+        run: flutter config --enable-macos-desktop
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          type: 'zip'
+          filename: MacRecoveryX-${{github.ref_name}}-macos.zip
+          directory: build/macos/Build/Products/Release
+      - name: macOS Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: build/macos/Build/Products/Release/MacRecoveryX-${{github.ref_name}}-macos.zip
