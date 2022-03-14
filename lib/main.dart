@@ -1,40 +1,16 @@
 // ignore_for_file: prefer_const_constructors
 // TODO: versione macos ufficiale
 // TODO: aggiungere msix
-// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show Platform;
 import 'package:window_manager/window_manager.dart';
-import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-
-// Future<void> main() async {
-//   if (!kIsWeb) {
-//     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-//       WidgetsFlutterBinding.ensureInitialized();
-//       // Must add this line.
-//       await windowManager.ensureInitialized();
-//       await Window.initialize();
-//     }
-//   }
-//   runApp(const MyApp());
-//   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-//     windowManager.setAlwaysOnTop(true);
-//     windowManager.setTitle("Garen GUI 3.0");
-//     // windowManager.setOpacity(1);
-//     await Window.setEffect(effect: WindowEffect.acrylic);
-//   }
-// }
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  await Window.initialize();
-  // if (Platform.isWindows) {
-  //   await Window.showWindowControls();
-  // }
   runApp(MyApp());
   if (Platform.isWindows) {
     doWhenWindowReady(() async {
@@ -45,14 +21,9 @@ Future<void> main() async {
       appWindow.alignment = Alignment.centerRight;
       appWindow.show();
       windowManager.setAlwaysOnTop(true);
-      // windowManager.setBackgroundColor(Colors.transparent);
-      // Window.setEffect(effect: WindowEffect.transparent);
     });
   }
 }
-
-// ThemeData defaultTheme =
-//     ThemeData(brightness: Brightness.dark, primarySwatch: Colors.green);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -63,7 +34,6 @@ class MyApp extends StatelessWidget {
       title: 'Garen GUI 3.0',
       theme: ThemeData(
         brightness: Brightness.dark,
-        // backgroundColor: Colors.transparent,
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(),
@@ -87,26 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    // Window.setEffect(
-    //   effect: WindowEffect.acrylic,
-    //   color: Color(0xCC222222),
-    // );
   }
-
-  // void setWindowEffect(WindowEffect? value) {
-  //   Window.setEffect(
-  //     effect: value!,
-  //     color: Colors.grey,
-  //     dark: true,
-  //   );
-  //   // if (Platform.isMacOS) {
-  //   //   if (brightness != InterfaceBrightness.auto) {
-  //   //     Window.overrideMacOSBrightness(
-  //   //         dark: brightness == InterfaceBrightness.dark);
-  //   //   }
-  //   // }
-  //   // setState(() => this.effect = value);
-  // }
 
   void calculate(int level, int totHealth) {
     setState(() {
@@ -164,7 +115,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding:
                     const EdgeInsets.only(left: 10.0, right: 10.0, top: 1.0),
                 alignment: Alignment.topCenter,
-                // color: Colors.transparent,
                 child: SizedBox(
                   width: 500,
                   child: Wrap(
