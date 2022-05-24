@@ -1,18 +1,22 @@
-// ignore_for_file: prefer_const_constructors
 // TODO: aggiungere msix
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
-import 'dart:io' show Platform;
+import 'dart:io' show Platform, Process, stderr, stdout;
 import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 Future<void> main() async {
+  dynamic process = await Process.start('./lib/Tesseract-OCR/tesseract.exe',
+      ['lib/Tesseract-OCR/screen1.png', 'text', '-l', 'eng']);
+  stdout.addStream(process.stdout);
+  stderr.addStream(process.stderr);
+  await process.exitCode;
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   await Window.initialize();
-  runApp(MyApp());
+  runApp(const MyApp());
   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
     doWhenWindowReady(() async {
       const initialSize = Size(170, 220);
@@ -107,14 +111,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Stack(
               children: [
                 Container(
-                  color: Color.fromARGB(140, 0, 0, 0),
+                  color: const Color.fromARGB(140, 0, 0, 0),
                 ),
                 MoveWindow(),
               ],
             )),
             Expanded(
                 child: Scaffold(
-              backgroundColor: Color.fromARGB(110, 0, 0, 0),
+              backgroundColor: const Color.fromARGB(110, 0, 0, 0),
               body: Container(
                 padding:
                     const EdgeInsets.only(left: 10.0, right: 10.0, top: 1.0),
@@ -125,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     runAlignment: WrapAlignment.center,
                     runSpacing: 5,
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "Garen ultimate level",
                         style: TextStyle(height: 1, fontSize: 11),
                       ),
@@ -143,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         min: 1,
                         max: 3,
                       ),
-                      Text(
+                      const Text(
                         "Target maximum health points",
                         style: TextStyle(height: 1, fontSize: 11),
                       ),
@@ -168,12 +172,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             FilteringTextInputFormatter.digitsOnly
                           ],
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.only(left: 5),
-                            border: OutlineInputBorder(),
+                            contentPadding: const EdgeInsets.only(left: 5),
+                            border: const OutlineInputBorder(),
                             hintText: 'Enter target maximum health points',
                             suffixIcon: IconButton(
                               onPressed: controllerMaxHP.clear,
-                              icon: Icon(Icons.clear),
+                              icon: const Icon(Icons.clear),
                               splashRadius: 18,
                             ),
                           ),
@@ -182,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       Text(
                         "Optimal damage: $total",
-                        style: TextStyle(height: 1, fontSize: 11),
+                        style: const TextStyle(height: 1, fontSize: 11),
                       ),
                     ],
                   ),
