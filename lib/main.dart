@@ -1,22 +1,24 @@
 // TODO: aggiungere msix
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
-import 'dart:io' show Platform, Process, stderr, stdout;
+import 'dart:io' show File, Platform, Process, stderr, stdout;
 import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
+class Enemy {
+  int hp = 0;
+  int maxHp = 0;
+}
+
 Future<void> main() async {
-  dynamic process = await Process.start('./lib/Tesseract-OCR/tesseract.exe',
-      ['lib/Tesseract-OCR/screen1.png', 'text', '-l', 'eng']);
-  stdout.addStream(process.stdout);
-  stderr.addStream(process.stderr);
-  await process.exitCode;
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
   await Window.initialize();
   runApp(const MyApp());
+  // MyApp.
   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
     doWhenWindowReady(() async {
       const initialSize = Size(170, 220);
@@ -61,10 +63,61 @@ class _MyHomePageState extends State<MyHomePage> {
   int total = 0;
   int level = 1;
   final controllerMaxHP = TextEditingController();
+  final controllerLevel = TextEditingController();
 
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> ocr(TextEditingController level, Enemy enemy,
+      TextEditingController controllerMaxHp, KeyEvent event) async {
+    String nirPath;
+    String ocrPath;
+    if (kDebugMode) {
+      nirPath = "e:/disco d/garen_gui/lib/nircmd-x64/nircmd.exe";
+      ocrPath = "e:/disco d/garen_gui/lib/Tesseract-OCR/tesseract.exe";
+    } else {
+      nirPath = "./nircmd-x64/nircmd.exe";
+      ocrPath = "./tesseract-x64/tesseract.exe";
+    }
+    while (true) {
+      // wait 1 second
+      Future.delayed(const Duration(seconds: 1));
+      dynamic process = await Process.start(
+          nirPath, ['savescreenshot', 'screen1.png', '0', '0', '600', '300']);
+      // stdout.addStream(process.stdout);
+      // stderr.addStream(process.stderr);
+      await process.exitCode;
+      process =
+          await Process.start(ocrPath, ['screen1.png', 'text', '-l', 'eng']);
+      // stdout.addStream(process.stdout);
+      // stderr.addStream(process.stderr);
+      await process.exitCode;
+      // extract string from file with regex and print it
+      RegExp regExp = RegExp(r'\d+\d\/\d\d+');
+      String text = File('text.txt').readAsStringSync();
+      if (kDebugMode) {
+        print(regExp.stringMatch(text));
+      }
+      try {
+        enemy.hp = int.tryParse((regExp
+                .stringMatch(text)!
+                .replaceAll(RegExp(r'\/\d\d+'), ''))) ??
+            0;
+        print("enemy hp: " + enemy.hp.toString());
+        enemy.maxHp = int.tryParse((regExp
+                .stringMatch(text)!
+                .replaceAll(RegExp(r'\d+\d\/'), ''))) ??
+            0;
+        print("enemy max hp: " + enemy.maxHp.toString());
+        controllerMaxHP.text = enemy.maxHp.toString();
+        calculate(int.parse(level.text), enemy.maxHp);
+      } catch (e) {
+        enemy.hp = 0;
+        enemy.maxHp = 0;
+      }
+    }
   }
 
   void calculate(int level, int totHealth) {
@@ -135,7 +188,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       NumberInputWithIncrementDecrement(
                         initialValue: 1,
-                        controller: TextEditingController(),
+                        controller: controllerLevel,
                         onIncrement: (num lv) {
                           level = lv.toInt();
                           calculate(level, totHealth);
@@ -156,7 +209,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         onKeyEvent: (event) {
                           if (event.logicalKey == LogicalKeyboardKey.escape) {
                             // here you can check if textfield is focused
-                            clearText();
+                            // clearText();
+                            Enemy enemy = Enemy();
+
+                            ocr(controllerLevel, enemy, controllerMaxHP, event);
                           }
                         },
                         child: TextField(
