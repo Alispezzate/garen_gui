@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
-import 'dart:io' show File, Platform, Process, stderr, stdout;
+import 'dart:io' show File, Platform, Process;
 import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:image/image.dart' as img;
 
 class Enemy {
   int hp = 0;
@@ -70,45 +71,61 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  // TODO: aggiungere la possibilità di personalizzare la dimensione e posizione dello screenshot
+  // TODO: migliorare la rilevazione del testo
+  // TODO: automatizzare inserimento livello ultimate
+  // TODO: cancellare file inutili
+  // TODO: usare https://127.0.0.1:2999/liveclientdata/allgamedata per ottenere il livello della ulti
+  // TODO: mostrare hp attuali
   Future<void> ocr(TextEditingController level, Enemy enemy,
       TextEditingController controllerMaxHp, KeyEvent event) async {
     String nirPath;
     String ocrPath;
     if (kDebugMode) {
-      nirPath = "e:/disco d/garen_gui/lib/nircmd-x64/nircmd.exe";
-      ocrPath = "e:/disco d/garen_gui/lib/Tesseract-OCR/tesseract.exe";
+      nirPath = "lib/nircmd-x64/nircmd.exe";
+      ocrPath = "lib/Tesseract-OCR/tesseract.exe";
     } else {
-      nirPath = "./nircmd-x64/nircmd.exe";
-      ocrPath = "./tesseract-x64/tesseract.exe";
+      nirPath = "nircmd-x64/nircmd.exe";
+      ocrPath = "Tesseract-OCR/tesseract.exe";
+      controllerMaxHP.text = "69420";
     }
     while (true) {
       // wait 1 second
-      Future.delayed(const Duration(seconds: 1));
+      // await Future.delayed(const Duration(milliseconds: 100));
       dynamic process = await Process.start(
-          nirPath, ['savescreenshot', 'screen1.png', '0', '0', '600', '300']);
+          nirPath, ['savescreenshot', 'screen1.png', '230', '40', '150', '25']);
       // stdout.addStream(process.stdout);
       // stderr.addStream(process.stderr);
       await process.exitCode;
-      process =
-          await Process.start(ocrPath, ['screen1.png', 'text', '-l', 'eng']);
+      try {
+        // turn image to gray scale
+        img.Image? image = img.decodePng(File('screen1.png').readAsBytesSync());
+        image = img.invert(image!);
+        image = img.adjustColor(image, gamma: 0.179, saturation: 0.0);
+        // image = img.grayscale(image);
+        // save image
+        File('screen1.png').writeAsBytesSync(img.encodePng(image));
+        process = await Process.start(
+            ocrPath, ['screen1.png', 'text', '-l', 'eng', 'digits']);
+      } catch (e) {
+        print(e);
+      }
       // stdout.addStream(process.stdout);
       // stderr.addStream(process.stderr);
       await process.exitCode;
       // extract string from file with regex and print it
-      RegExp regExp = RegExp(r'\d+\d\/\d\d+');
+      RegExp regExp = RegExp(r'\d+\/\d+');
       String text = File('text.txt').readAsStringSync();
       if (kDebugMode) {
         print(regExp.stringMatch(text));
       }
       try {
-        enemy.hp = int.tryParse((regExp
-                .stringMatch(text)!
-                .replaceAll(RegExp(r'\/\d\d+'), ''))) ??
+        enemy.hp = int.tryParse(
+                (regExp.stringMatch(text)!.replaceAll(RegExp(r'\/\d+'), ''))) ??
             0;
         print("enemy hp: " + enemy.hp.toString());
-        enemy.maxHp = int.tryParse((regExp
-                .stringMatch(text)!
-                .replaceAll(RegExp(r'\d+\d\/'), ''))) ??
+        enemy.maxHp = int.tryParse(
+                (regExp.stringMatch(text)!.replaceAll(RegExp(r'\d+\/'), ''))) ??
             0;
         print("enemy max hp: " + enemy.maxHp.toString());
         controllerMaxHP.text = enemy.maxHp.toString();
