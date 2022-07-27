@@ -1,4 +1,4 @@
-// TODO: aggiungere msix
+// TODO: aggiungere msix https://pub.dev/packages/msix
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
@@ -72,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // TODO: aggiungere la possibilità di personalizzare la dimensione e posizione dello screenshot
-  // TODO: migliorare la rilevazione del testo
+  // TODO: migliorare ocr, testare https://pub.dev/packages?q=platform%3Awindows+ocr
   // TODO: automatizzare inserimento livello ultimate
   // TODO: cancellare file inutili
   // TODO: usare https://127.0.0.1:2999/liveclientdata/allgamedata per ottenere il livello della ulti
@@ -92,6 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     while (true) {
       // wait 1 second
       // await Future.delayed(const Duration(milliseconds: 100));
+      // TODO: usare https://pub.dev/packages/win32 screenshot.dart
       dynamic process = await Process.start(
           nirPath, ['savescreenshot', 'screen1.png', '230', '40', '150', '25']);
       // stdout.addStream(process.stdout);
