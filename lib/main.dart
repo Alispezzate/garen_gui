@@ -92,7 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
     while (true) {
       // wait 1 second
       // await Future.delayed(const Duration(milliseconds: 100));
-      // TODO: usare https://pub.dev/packages/win32 screenshot.dart
+      // TODO: usare https://pub.dev/packages/win32 screenshot.dart , o meglio, https://pub.dev/packages/screen_capturer
       dynamic process = await Process.start(
           nirPath, ['savescreenshot', 'screen1.png', '230', '40', '150', '25']);
       // stdout.addStream(process.stdout);

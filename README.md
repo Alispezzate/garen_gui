@@ -6,7 +6,6 @@ The app is made with Flutter + Dart, build for Windows, Android and Web are supp
 iOS build is released but not tested, let me know if it works.<br>
 
 TODO:<br>
--Solve text field getting stuck issue <br>
 -Improve UI/UX<br>
 -And more<br>
 
