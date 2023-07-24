@@ -1,4 +1,13 @@
 {
     "compile-hero.disable-compile-files-on-did-save-code": false,
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    // Remove .fvm files from search
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    }
 }

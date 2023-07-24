@@ -45,3 +45,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 .vscode/
+lib/Tesseract-OCR/libtesseract-5.dll
+.fvm/flutter_sdk
+text.txt
+.fvm/fvm_config.json
+lib/main.dart
