@@ -44,6 +44,13 @@ dependencies:
   window_manager: ^0.3.4
   flutter_acrylic: ^1.0.0+2
   bitsdojo_window: ^0.1.2
+  image: ^4.0.17
+  retrofit: ^4.0.1
+  retrofit_generator: '>=5.0.0 <6.0.0'
+  dio: ^5.3.0
+  build_runner: ^2.4.6
+  json_serializable: ^6.7.1
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:

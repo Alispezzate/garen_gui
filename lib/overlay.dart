@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/window.dart';
@@ -5,11 +6,14 @@ import 'package:flutter_acrylic/window_effect.dart';
 // import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
-import 'dart:io' show File, Platform, Process;
+import 'dart:io' show File, Process;
 // import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:image/image.dart' as img;
 import 'package:window_manager/window_manager.dart';
+
+import 'models/game_data.dart';
+import 'services/game_data_service.dart';
 
 class Enemy {
   int hp = 0;
@@ -53,6 +57,11 @@ class _WindowOverlayState extends State<WindowOverlay> {
       controllerMaxHP.text = "69420";
     }
     while (true) {
+      try {
+        GameData gameData = await GameDataService(Dio()).getGameData();
+      } catch (e) {
+        print(e);
+      }
       // wait 1 second
       // await Future.delayed(const Duration(milliseconds: 100));
       // TODO: usare https://pub.dev/packages/win32 screenshot.dart , o meglio, https://pub.dev/packages/screen_capturer
@@ -83,9 +92,9 @@ class _WindowOverlayState extends State<WindowOverlay> {
       }
       try {
         enemy.hp = int.tryParse((regExp.stringMatch(text)!.replaceAll(RegExp(r'\/\d+'), ''))) ?? 0;
-        print("enemy hp: " + enemy.hp.toString());
+        print("enemy hp: ${enemy.hp}");
         enemy.maxHp = int.tryParse((regExp.stringMatch(text)!.replaceAll(RegExp(r'\d+\/'), ''))) ?? 0;
-        print("enemy max hp: " + enemy.maxHp.toString());
+        print("enemy max hp: ${enemy.maxHp}");
         controllerMaxHP.text = enemy.maxHp.toString();
         calculate(int.parse(level.text), enemy.maxHp);
       } catch (e) {
@@ -221,7 +230,7 @@ class _WindowOverlayState extends State<WindowOverlay> {
                               "Optimal damage: $total",
                               style: const TextStyle(height: 1, fontSize: 11),
                             ),
-                            Text(
+                            const Text(
                               "Press Page Up to hide overlay",
                               style: TextStyle(height: 1, fontSize: 11),
                             ),
