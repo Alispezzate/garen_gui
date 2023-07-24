@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_acrylic/flutter_acrylic.dart';
+// import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
 import 'dart:io' show File, Platform, Process;
-import 'package:window_manager/window_manager.dart';
+// import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:image/image.dart' as img;
+import 'package:window_manager/window_manager.dart';
 
 class Enemy {
   int hp = 0;
@@ -281,6 +282,6 @@ class _WindowOverlayState extends State<WindowOverlay> {
     appWindow.title = "GAREN";
     appWindow.alignment = Alignment.center;
     appWindow.show();
-    // windowManager.setAlwaysOnTop(true);
+    windowManager.setAlwaysOnTop(false);
   }
 }

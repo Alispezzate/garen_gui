@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
         appWindow.alignment = Alignment.centerRight;
         // appWindow.restore();
         appWindow.show();
-        // windowManager.setAlwaysOnTop(true);
+        windowManager.setAlwaysOnTop(true);
         Window.setEffect(
           effect: WindowEffect.transparent,
         );
