@@ -12,9 +12,6 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:image/image.dart' as img;
 import 'package:window_manager/window_manager.dart';
 
-import 'models/game_data.dart';
-import 'services/game_data_service.dart';
-
 class Enemy {
   int hp = 0;
   int maxHp = 0;
@@ -45,64 +42,64 @@ class _WindowOverlayState extends State<WindowOverlay> {
   // TODO: cancellare file inutili
   // TODO: usare https://127.0.0.1:2999/liveclientdata/allgamedata per ottenere il livello della ulti
   // TODO: mostrare hp attuali
-  Future<void> ocr(TextEditingController level, Enemy enemy, TextEditingController controllerMaxHp, KeyEvent event) async {
-    String nirPath;
-    String ocrPath;
-    if (kDebugMode) {
-      nirPath = "lib/nircmd-x64/nircmd.exe";
-      ocrPath = "lib/Tesseract-OCR/tesseract.exe";
-    } else {
-      nirPath = "nircmd-x64/nircmd.exe";
-      ocrPath = "Tesseract-OCR/tesseract.exe";
-      controllerMaxHP.text = "69420";
-    }
-    while (true) {
-      try {
-        GameData gameData = await GameDataService(Dio()).getGameData();
-      } catch (e) {
-        print(e);
-      }
-      // wait 1 second
-      // await Future.delayed(const Duration(milliseconds: 100));
-      // TODO: usare https://pub.dev/packages/win32 screenshot.dart , o meglio, https://pub.dev/packages/screen_capturer
-      dynamic process = await Process.start(nirPath, ['savescreenshot', 'screen1.png', '230', '40', '150', '25']);
-      // stdout.addStream(process.stdout);
-      // stderr.addStream(process.stderr);
-      await process.exitCode;
-      try {
-        // turn image to gray scale
-        img.Image? image = img.decodePng(File('screen1.png').readAsBytesSync());
-        image = img.invert(image!);
-        image = img.adjustColor(image, gamma: 0.179, saturation: 0.0);
-        // image = img.grayscale(image);
-        // save image
-        File('screen1.png').writeAsBytesSync(img.encodePng(image));
-        process = await Process.start(ocrPath, ['screen1.png', 'text', '-l', 'eng', 'digits']);
-      } catch (e) {
-        print(e);
-      }
-      // stdout.addStream(process.stdout);
-      // stderr.addStream(process.stderr);
-      await process.exitCode;
-      // extract string from file with regex and print it
-      RegExp regExp = RegExp(r'\d+\/\d+');
-      String text = File('text.txt').readAsStringSync();
-      if (kDebugMode) {
-        print(regExp.stringMatch(text));
-      }
-      try {
-        enemy.hp = int.tryParse((regExp.stringMatch(text)!.replaceAll(RegExp(r'\/\d+'), ''))) ?? 0;
-        print("enemy hp: ${enemy.hp}");
-        enemy.maxHp = int.tryParse((regExp.stringMatch(text)!.replaceAll(RegExp(r'\d+\/'), ''))) ?? 0;
-        print("enemy max hp: ${enemy.maxHp}");
-        controllerMaxHP.text = enemy.maxHp.toString();
-        calculate(int.parse(level.text), enemy.maxHp);
-      } catch (e) {
-        enemy.hp = 0;
-        enemy.maxHp = 0;
-      }
-    }
-  }
+  // Future<void> ocr(TextEditingController level, Enemy enemy, TextEditingController controllerMaxHp, KeyEvent event) async {
+  //   String nirPath;
+  //   String ocrPath;
+  //   if (kDebugMode) {
+  //     nirPath = "lib/nircmd-x64/nircmd.exe";
+  //     ocrPath = "lib/Tesseract-OCR/tesseract.exe";
+  //   } else {
+  //     nirPath = "nircmd-x64/nircmd.exe";
+  //     ocrPath = "Tesseract-OCR/tesseract.exe";
+  //     controllerMaxHP.text = "69420";
+  //   }
+  //   while (true) {
+  //     try {
+  //       GameData gameData = await GameDataService(Dio()).getGameData();
+  //     } catch (e) {
+  //       print(e);
+  //     }
+  //     // wait 1 second
+  //     // await Future.delayed(const Duration(milliseconds: 100));
+  //     // TODO: usare https://pub.dev/packages/win32 screenshot.dart , o meglio, https://pub.dev/packages/screen_capturer
+  //     dynamic process = await Process.start(nirPath, ['savescreenshot', 'screen1.png', '230', '40', '150', '25']);
+  //     // stdout.addStream(process.stdout);
+  //     // stderr.addStream(process.stderr);
+  //     await process.exitCode;
+  //     try {
+  //       // turn image to gray scale
+  //       img.Image? image = img.decodePng(File('screen1.png').readAsBytesSync());
+  //       image = img.invert(image!);
+  //       image = img.adjustColor(image, gamma: 0.179, saturation: 0.0);
+  //       // image = img.grayscale(image);
+  //       // save image
+  //       File('screen1.png').writeAsBytesSync(img.encodePng(image));
+  //       process = await Process.start(ocrPath, ['screen1.png', 'text', '-l', 'eng', 'digits']);
+  //     } catch (e) {
+  //       print(e);
+  //     }
+  //     // stdout.addStream(process.stdout);
+  //     // stderr.addStream(process.stderr);
+  //     await process.exitCode;
+  //     // extract string from file with regex and print it
+  //     RegExp regExp = RegExp(r'\d+\/\d+');
+  //     String text = File('text.txt').readAsStringSync();
+  //     if (kDebugMode) {
+  //       print(regExp.stringMatch(text));
+  //     }
+  //     try {
+  //       enemy.hp = int.tryParse((regExp.stringMatch(text)!.replaceAll(RegExp(r'\/\d+'), ''))) ?? 0;
+  //       print("enemy hp: ${enemy.hp}");
+  //       enemy.maxHp = int.tryParse((regExp.stringMatch(text)!.replaceAll(RegExp(r'\d+\/'), ''))) ?? 0;
+  //       print("enemy max hp: ${enemy.maxHp}");
+  //       controllerMaxHP.text = enemy.maxHp.toString();
+  //       calculate(int.parse(level.text), enemy.maxHp);
+  //     } catch (e) {
+  //       enemy.hp = 0;
+  //       enemy.maxHp = 0;
+  //     }
+  //   }
+  // }
 
   void calculate(int level, int totHealth) {
     setState(() {
@@ -190,39 +187,27 @@ class _WindowOverlayState extends State<WindowOverlay> {
                           "Target maximum health points",
                           style: TextStyle(height: 1, fontSize: 11),
                         ),
-                        KeyboardListener(
-                          focusNode: FocusNode(), // or FocusNode()
-                          onKeyEvent: (event) {
-                            if (event.logicalKey == LogicalKeyboardKey.escape) {
-                              // here you can check if textfield is focused
-                              // clearText();
-                              Enemy enemy = Enemy();
-
-                              ocr(controllerLevel, enemy, controllerMaxHP, event);
+                        TextField(
+                          controller: controllerMaxHP,
+                          maxLength: 5,
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              totHealth = int.parse(value);
+                              calculate(level, totHealth);
                             }
                           },
-                          child: TextField(
-                            controller: controllerMaxHP,
-                            maxLength: 5,
-                            onChanged: (value) {
-                              if (value.isNotEmpty) {
-                                totHealth = int.parse(value);
-                                calculate(level, totHealth);
-                              }
-                            },
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.only(left: 5),
-                              border: const OutlineInputBorder(),
-                              hintText: 'Enter target maximum health points',
-                              suffixIcon: IconButton(
-                                onPressed: controllerMaxHP.clear,
-                                icon: const Icon(Icons.clear),
-                                splashRadius: 18,
-                              ),
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          decoration: InputDecoration(
+                            contentPadding: const EdgeInsets.only(left: 5),
+                            border: const OutlineInputBorder(),
+                            hintText: 'Enter target maximum health points',
+                            suffixIcon: IconButton(
+                              onPressed: controllerMaxHP.clear,
+                              icon: const Icon(Icons.clear),
+                              splashRadius: 18,
                             ),
-                            keyboardType: TextInputType.number,
                           ),
+                          keyboardType: TextInputType.number,
                         ),
                         Column(
                           children: [
