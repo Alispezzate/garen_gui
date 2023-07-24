@@ -28,9 +28,10 @@ Future<void> main() async {
       // appWindow.alignment = Alignment.centerRight;
       appWindow.show();
       // windowManager.setAlwaysOnTop(true);
-      // Window.setEffect(
-      //   effect: WindowEffect.transparent,
-      // );
+      windowManager.setBackgroundColor(Colors.transparent);
+      Window.setEffect(
+        effect: WindowEffect.transparent,
+      );
     });
   }
   // WindowOptions windowOptions = WindowOptions(
@@ -207,7 +208,7 @@ class _MyHomePageState extends State<MyHomePage> {
     if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
       doWhenWindowReady(() async {
         appWindow.hide();
-        const initialSize = Size(170, 220);
+        const initialSize = Size(170, 230);
         appWindow.minSize = initialSize;
         appWindow.size = initialSize;
         appWindow.title = "GAREN";
@@ -215,9 +216,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // appWindow.restore();
         appWindow.show();
         windowManager.setAlwaysOnTop(true);
-        Window.setEffect(
-          effect: WindowEffect.transparent,
-        );
+        Window.setEffect(effect: WindowEffect.transparent, color: Colors.transparent);
       });
     }
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_acrylic/window.dart';
+import 'package:flutter_acrylic/window_effect.dart';
 // import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:number_inc_dec/number_inc_dec.dart';
 import 'package:flutter/services.dart';
@@ -13,44 +15,6 @@ class Enemy {
   int hp = 0;
   int maxHp = 0;
 }
-
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await windowManager.ensureInitialized();
-//   await Window.initialize();
-//   runApp(const MyApp());
-//   // MyApp.
-//   if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) {
-//     doWhenWindowReady(() async {
-//       const initialSize = Size(170, 220);
-//       appWindow.minSize = initialSize;
-//       appWindow.size = initialSize;
-//       appWindow.title = "GAREN";
-//       appWindow.alignment = Alignment.centerRight;
-//       appWindow.show();
-//       windowManager.setAlwaysOnTop(true);
-//       Window.setEffect(
-//         effect: WindowEffect.transparent,
-//       );
-//     });
-//   }
-// }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Garen GUI 3.0',
-//       theme: ThemeData(
-//         brightness: Brightness.dark,
-//         primarySwatch: Colors.green,
-//       ),
-//       home: const WindowOverlay(),
-//     );
-//   }
-// }
 
 class WindowOverlay extends StatefulWidget {
   const WindowOverlay({Key? key}) : super(key: key);
@@ -274,6 +238,9 @@ class _WindowOverlayState extends State<WindowOverlay> {
   }
 
   getBackToMainWindow(BuildContext context) {
+    Window.setEffect(
+      effect: WindowEffect.transparent,
+    );
     appWindow.hide();
     Navigator.of(context).pop();
     const initialSize = Size(500, 500);
