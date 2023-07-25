@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'dart:io' show File, Process;
 // import 'package:window_manager/window_manager.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:image/image.dart' as img;
 import 'package:window_manager/window_manager.dart';
 
 class Enemy {

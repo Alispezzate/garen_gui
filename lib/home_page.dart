@@ -70,101 +70,99 @@ class _MyHomePageState extends State<MyHomePage> {
         body: WindowBorder(
           width: 1,
           color: Colors.green,
-          child: Expanded(
-            child: Column(
-              children: [
-                WindowTitleBarBox(
-                  child: Row(
-                    children: [Expanded(child: MoveWindow()), const WindowButtons()],
-                  ),
+          child: Column(
+            children: [
+              WindowTitleBarBox(
+                child: Row(
+                  children: [Expanded(child: MoveWindow()), const WindowButtons()],
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10.0),
-                  alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    width: 500,
-                    child: Wrap(
-                      runAlignment: WrapAlignment.center,
-                      runSpacing: 10,
-                      children: <Widget>[
-                        const Text(
-                          "Garen ultimate level",
-                          style: TextStyle(height: 1, fontSize: 18),
-                        ),
-                        NumberInputWithIncrementDecrement(
-                          initialValue: 1,
-                          controller: TextEditingController(),
-                          onIncrement: (num lv) {
-                            level = lv.toInt();
-                            calculate(level, totHealth);
-                          },
-                          onDecrement: (num lv) {
-                            level = lv.toInt();
-                            calculate(level, totHealth);
-                          },
-                          min: 1,
-                          max: 3,
-                        ),
-                        const SizedBox(
-                          height: 0,
-                          width: 600,
-                        ),
-                        const Text(
-                          "Target maximum health points",
-                          style: TextStyle(height: 1, fontSize: 18),
-                        ),
-                        KeyboardListener(
-                          focusNode: FocusNode(), // or FocusNode()
-                          onKeyEvent: (event) {
-                            if (event.logicalKey == LogicalKeyboardKey.escape) {
-                              // here you can check if textfield is focused
-                              clearText();
+              ),
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  width: 500,
+                  child: Wrap(
+                    runAlignment: WrapAlignment.center,
+                    runSpacing: 10,
+                    children: <Widget>[
+                      const Text(
+                        "Garen ultimate level",
+                        style: TextStyle(height: 1, fontSize: 18),
+                      ),
+                      NumberInputWithIncrementDecrement(
+                        initialValue: 1,
+                        controller: TextEditingController(),
+                        onIncrement: (num lv) {
+                          level = lv.toInt();
+                          calculate(level, totHealth);
+                        },
+                        onDecrement: (num lv) {
+                          level = lv.toInt();
+                          calculate(level, totHealth);
+                        },
+                        min: 1,
+                        max: 3,
+                      ),
+                      const SizedBox(
+                        height: 0,
+                        width: 600,
+                      ),
+                      const Text(
+                        "Target maximum health points",
+                        style: TextStyle(height: 1, fontSize: 18),
+                      ),
+                      KeyboardListener(
+                        focusNode: FocusNode(), // or FocusNode()
+                        onKeyEvent: (event) {
+                          if (event.logicalKey == LogicalKeyboardKey.escape) {
+                            // here you can check if textfield is focused
+                            clearText();
+                          }
+                        },
+                        child: TextField(
+                          controller: controllerMaxHP,
+                          maxLength: 5,
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              totHealth = int.parse(value);
+                              calculate(level, totHealth);
                             }
                           },
-                          child: TextField(
-                            controller: controllerMaxHP,
-                            maxLength: 5,
-                            onChanged: (value) {
-                              if (value.isNotEmpty) {
-                                totHealth = int.parse(value);
-                                calculate(level, totHealth);
-                              }
-                            },
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                              hintText: 'Enter target maximum health points',
-                              suffixIcon: IconButton(
-                                onPressed: controllerMaxHP.clear,
-                                icon: const Icon(Icons.clear),
-                                splashRadius: 18,
-                              ),
+                          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: 'Enter target maximum health points',
+                            suffixIcon: IconButton(
+                              onPressed: controllerMaxHP.clear,
+                              icon: const Icon(Icons.clear),
+                              splashRadius: 18,
                             ),
-                            keyboardType: TextInputType.number,
                           ),
+                          keyboardType: TextInputType.number,
                         ),
-                        Center(
-                          child: Column(
-                            children: [
-                              Text(
-                                "Optimal damage: $total",
-                                style: const TextStyle(height: 1, fontSize: 18),
-                              ),
-                              Platform.isWindows
-                                  ? const Text(
-                                      "Press delete to show overlay",
-                                      style: TextStyle(height: 1, fontSize: 18),
-                                    )
-                                  : Container(),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              "Optimal damage: $total",
+                              style: const TextStyle(height: 1, fontSize: 18),
+                            ),
+                            Platform.isWindows
+                                ? const Text(
+                                    "Press delete to show overlay",
+                                    style: TextStyle(height: 1, fontSize: 18),
+                                  )
+                                : Container(),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
         ),
       ),

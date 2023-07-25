@@ -5,18 +5,18 @@ packages:
     dependency: transitive
     description:
       name: _fe_analyzer_shared
-      sha256: ae92f5d747aee634b87f89d9946000c2de774be1d6ac3e58268224348cd0101a
+      sha256: "0816708f5fbcacca324d811297153fe3c8e047beb5c6752e12292d2974c17045"
       url: "https://pub.dev"
     source: hosted
-    version: "61.0.0"
+    version: "62.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
-      sha256: ea3d8652bda62982addfd92fdc2d0214e5f82e43325104990d4f4c4a2a313562
+      sha256: "21862995c9932cd082f89d72ae5f5e2c110d1a0204ad06e4ebaee8307b76b834"
       url: "https://pub.dev"
     source: hosted
-    version: "5.13.0"
+    version: "6.0.0"
   archive:
     dependency: transitive
     description:
@@ -225,14 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  cupertino_icons:
-    dependency: "direct main"
+  dart_internal:
+    dependency: transitive
     description:
-      name: cupertino_icons
-      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
+      name: dart_internal
+      sha256: dae3976f383beddcfcd07ad5291a422df2c8c0a8a03c52cda63ac7b4f26e0f4e
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.5"
+    version: "0.2.8"
   dart_style:
     dependency: transitive
     description:
@@ -356,7 +356,7 @@ packages:
     source: hosted
     version: "4.0.2"
   image:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: image
       sha256: a72242c9a0ffb65d03de1b7113bc4e189686fc07c7147b8b41811d0dd0e0d9bf
@@ -543,10 +543,10 @@ packages:
     dependency: "direct main"
     description:
       name: retrofit_generator
-      sha256: "5289b5cfc73ba123e238b9d3348a143fcb7f9d93c821525868f8dc3bb497c499"
+      sha256: "9499eb46b3657a62192ddbc208ff7e6c6b768b19e83c1ee6f6b119c864b99690"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.0+1"
+    version: "7.0.8"
   screen_retriever:
     dependency: transitive
     description:
@@ -712,15 +712,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.3.5"
-  window_size:
-    dependency: "direct main"
-    description:
-      path: "plugins/window_size"
-      ref: fd519be1e8398c6b6c2062c2447bac960a71bc02
-      resolved-ref: fd519be1e8398c6b6c2062c2447bac960a71bc02
-      url: "git://github.com/google/flutter-desktop-embedding.git"
-    source: git
-    version: "0.1.0"
   xml:
     dependency: transitive
     description:
@@ -738,5 +729,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0 <4.0.0"
+  dart: ">=3.0.0 <3.2.0"
   flutter: ">=3.7.0"

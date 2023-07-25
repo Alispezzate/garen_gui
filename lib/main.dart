@@ -12,6 +12,7 @@ import 'home_page.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+  await Window.initialize();
   // if (!kIsWeb) {
   //   if (Platform.isWindows) {
   //     setWindowTitle("Garen GUI 3.0");
