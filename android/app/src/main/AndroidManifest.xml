@@ -2,7 +2,7 @@
     package="com.example.garen_gui">
    <application
         android:label="Garen GUI 3.0"
-        android:icon="@mipmap/demacian_justice">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

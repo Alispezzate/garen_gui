@@ -15,7 +15,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 0.5.1+0
+version: 0.5.1+2
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
@@ -56,6 +56,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.2
   msix: ^3.16.0
+  flutter_launcher_icons: "^0.13.1"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -102,9 +103,30 @@ msix_config:
   display_name: Garen GUI
   publisher_display_name: Alispezzate
   identity_name: alispezzate.suite.garengui
-  msix_version: 0.5.1.0
-  # logo_path: C:\path\to\logo.png
+  msix_version: 0.5.1.2
+  logo_path: assets/icon.png
   # capabilities: internetClient, location, microphone, webcam
   install_certificate: false
   #To install unsigned msix use the following command:
   #Add-AppxPackage .\garen_gui.msix -AllowUnsigned 
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/icon.png"
+    background_color: "#0175C2"
+    theme_color: "#0175C2"
+  windows:
+    generate: true
+    image_path: "assets/icon.png"
+    icon_size: 256 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/icon.png"
+  linux:
+    generate: true
+    image_path: "assets/icon.png"
